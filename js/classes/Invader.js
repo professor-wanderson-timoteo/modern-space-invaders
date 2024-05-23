@@ -28,10 +28,26 @@ class Invader {
     );
   }
   update() {
-    if(this.image) {
+    if (this.image) {
       this.draw();
       this.position.x += this.velocity.x;
       this.position.y += this.velocity.y;
     }
+  }
+
+  shoot(invaderProjectiles) {
+    audio.enemyShoot.play();
+    invaderProjectiles.push(
+      new InvaderProjectile({
+        position: {
+          x: this.position.x + this.width / 2,
+          y: this.position.y + this.height
+        },
+        velocity: {
+          x: 0,
+          y: 5
+        }
+      })
+    );
   }
 }
