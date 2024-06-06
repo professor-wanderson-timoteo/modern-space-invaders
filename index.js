@@ -72,7 +72,7 @@ function init() {
 
   score = 0;
 
-  for(let i = 0; i< 100; i++) {
+  for (let i = 0; i < 100; i++) {
     particles.push(
       new Particle({
         position: {
@@ -88,4 +88,24 @@ function init() {
       })
     );
   }
+}
+
+function endGame() {
+  audio.gameOver.play();
+
+  setTimeout(() => {
+    player.opacity = 0;
+    game.over = true;
+  }, 0);
+
+  setTimeout(() => {
+    game.active = false;
+    document.querySelector("#restartScreen").style.display = "flex";
+  }, 2000);
+
+  createParticles({
+    object: player,
+    color: "white",
+    fades: true
+  });
 }
