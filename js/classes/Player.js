@@ -17,7 +17,7 @@ class Player {
         x: canvas.width / 2 - this.width / 2,
         y: canvas.height / 2 - this.height - 20
       };
-    }
+    };
     this.particles = [];
     this.frames = 0;
   }
@@ -44,12 +44,12 @@ class Player {
     c.restore();
   }
   update() {
-    if(!this.image) return;
+    if (!this.image) return;
     this.draw();
     this.position.x += this.velocity.x;
-    if(this.opacity !== 1) return;
+    if (this.opacity !== 1) return;
     this.frames++;
-    if(this.frames % 2 === 0) {
+    if (this.frames % 2 === 0) {
       this.particles.push(
         new Particle({
           position: {
@@ -63,7 +63,8 @@ class Player {
           radius: Math.random() * 2,
           color: "white",
           fades: true
-        }));
+        })
+      );
     }
   }
 }

@@ -160,7 +160,7 @@ function animate() {
     );
   }
 
-  for(let i = bombs.length - 1; i >= 0; i--) {
+  for (let i = bombs.length - 1; i >= 0; i--) {
     const bomb = bombs[i];
     if (bomb.opacity <= 0) {
       bombs.splice(i, 1);
@@ -168,23 +168,23 @@ function animate() {
   }
 
   player.update();
-  
-  for(let i = player.particles.length - 1; i >= 0; i--) {
+
+  for (let i = player.particles.length - 1; i >= 0; i--) {
     const particle = player.particles[i];
     particle.update();
     if (particle.opacity === 0) player.particles[i].splice(i, 1);
   }
 
   particles.forEach((particle, i) => {
-    if(particle.position.y - particle.radius >= canvas.height) {
+    if (particle.position.y - particle.radius >= canvas.height) {
       particle.position.x = Math.random() * canvas.width;
       particle.position.y = -particle.radius;
     }
 
-    if(particle.opacity <= 0) {
+    if (particle.opacity <= 0) {
       setTimeout(() => {
         particles.splice(i, 1);
-      }, 0)
+      }, 0);
     } else {
       particle.update();
     }
@@ -202,29 +202,29 @@ function animate() {
       invaderProjectile.update();
     }
 
-    if(
+    if (
       rectangularCollision({
         rectangle1: invaderProjectile,
         rectangle2: player
       })
-    ){
+    ) {
       invaderProjectiles.splice(index, 1);
       endGame();
     }
   });
 
-  for(let i = projectiles.length - 1; i >= 0; i--) {
+  for (let i = projectiles.length - 1; i >= 0; i--) {
     const projectile = projectiles[i];
 
-    for(let j = bombs.length - 1; j >= 0; j--) {
+    for (let j = bombs.length - 1; j >= 0; j--) {
       const bomb = bombs[j];
 
-      if(
+      if (
         Math.hypot(
           projectile.position.x - bomb.position.x,
           projectile.position.y - bomb.position.y
         ) <
-        projectile.radius + bomb.radius &&
+          projectile.radius + bomb.radius &&
         !bomb.active
       ) {
         projectiles.splice(i, 1);
@@ -232,10 +232,10 @@ function animate() {
       }
     }
 
-    for(let j = powerUps.length - 1; j >= 0; j--) {
+    for (let j = powerUps.length - 1; j >= 0; j--) {
       const powerUp = powerUps[j];
 
-      if(
+      if (
         Math.hypot(
           projectile.position.x - powerUp.position.x,
           projectile.position.y - powerUp.position.y
@@ -253,11 +253,10 @@ function animate() {
       }
     }
 
-    if(projectile.position.y + projectile.radius <= 0) {
+    if (projectile.position.y + projectile.radius <= 0) {
       projectiles.splice(i, 1);
     } else {
       projectile.update();
     }
   }
 }
-

@@ -28,16 +28,16 @@ class Bomb {
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
 
-    if(
-      this.position.x + this.radius + this.velocity.x >= canvas.width || 
+    if (
+      this.position.x + this.radius + this.velocity.x >= canvas.width ||
       this.position.x - this.radius + this.velocity.x <= 0
     ) {
       this.velocity.x = -this.velocity.x;
-    } else if(
-      this.position.y + this.radius + this.velocity.y >= canvas.height || 
+    } else if (
+      this.position.y + this.radius + this.velocity.y >= canvas.height ||
       this.position.y - this.radius + this.velocity.y <= 0
     )
-    this.velocity.y = -this.velocity.y;
+      this.velocity.y = -this.velocity.y;
   }
   explode() {
     audio.bomb.play();
@@ -45,7 +45,7 @@ class Bomb {
     this.velocity.x = 0;
     this.velocity.y = 0;
     gsap.to(this, {
-      radius: 200, 
+      radius: 200,
       color: "red"
     });
     gsap.to(this, {
@@ -64,11 +64,11 @@ class PowerUp {
   }
 
   draw() {
-    c.beginPath(); 
+    c.beginPath();
     c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
     c.fillStyle = "yellow";
     c.fill();
-    c.closePath(); 
+    c.closePath();
   }
 
   update() {
