@@ -387,13 +387,13 @@ function animate() {
     spawnBuffer -= 100;
   }
 
-  if(
+  if (
     keys.Space.pressed &&
     player.powerUp === "Metralhadora" &&
     frames % 2 === 0 &&
     !game.over
   ) {
-    if(frames % 6 === 0) audio.shoot.play();
+    if (frames % 6 === 0) audio.shoot.play();
     projectiles.push(
       new Projectile({
         position: {
@@ -406,7 +406,7 @@ function animate() {
         },
         color: "yellow"
       })
-    )
+    );
   }
 
   frames++;
@@ -418,6 +418,13 @@ document.querySelector("#startButton").addEventListener("click", () => {
 
   document.querySelector("#startScreen").style.display = "none";
   document.querySelector("#scoreContainer").style.display = "block";
+  init();
+  animate();
+});
+
+document.querySelector("#restartButton").addEventListener("click", () => {
+  audio.select.play();
+  document.querySelector("#restartScreen").style.display = "none";
   init();
   animate();
 });
