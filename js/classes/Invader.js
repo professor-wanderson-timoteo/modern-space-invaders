@@ -7,6 +7,7 @@ class Invader {
 
     const image = new Image();
     image.src = "./img/invader.png";
+    
     image.onload = () => {
       const scale = 1;
       this.image = image;
@@ -18,6 +19,7 @@ class Invader {
       };
     };
   }
+
   draw() {
     c.drawImage(
       this.image,
