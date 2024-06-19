@@ -5,14 +5,13 @@ const c = canvas.getContext("2d");
 canvas.width = 1024;
 canvas.height = 576;
 
+let player = new Player();
 let projectiles = [];
 let grids = [];
 let invaderProjectiles = [];
 let particles = [];
 let bombs = [];
 let powerUps = [];
-
-let player = new Player();
 
 let keys = {
   ArrowLeft: {
@@ -21,7 +20,7 @@ let keys = {
   ArrowRight: {
     pressed: false
   },
-  Space: {
+  space: {
     pressed: false
   }
 };
@@ -38,7 +37,6 @@ let score = 0;
 let spawnBuffer = 500;
 let fps = 60;
 let fpsInterval = 1000 / fps;
-
 let msPrev = window.performance.now();
 
 function init() {
@@ -49,7 +47,6 @@ function init() {
   particles = [];
   bombs = [];
   powerUps = [];
-  frames = 0;
 
   keys = {
     ArrowLeft: {
@@ -58,13 +55,13 @@ function init() {
     ArrowRight: {
       pressed: false
     },
-    Space: {
+    space: {
       pressed: false
     }
   };
 
+  frames = 0;
   randomInterval = Math.floor(Math.random() * 500 + 500);
-
   game = {
     over: false,
     active: true
@@ -114,10 +111,11 @@ function animate() {
   if (!game.active) return;
   requestAnimationFrame(animate);
 
-  let msNow = window.performance.now();
-  let elapsed = msNow - msPrev;
+  const msNow = window.performance.now();
+  const elapsed = msNow - msPrev;
 
   if (elapsed < fpsInterval) return;
+
   msPrev = msNow - (elapsed % fpsInterval);
 
   c.fillStyle = "black";
@@ -125,6 +123,7 @@ function animate() {
 
   for (let i = powerUps.length - 1; i >= 0; i--) {
     const powerUp = powerUps[i];
+
     if (powerUp.position.x - powerUp.radius >= canvas.width)
       powerUps.splice(i, 1);
     else powerUp.update();
@@ -162,6 +161,7 @@ function animate() {
 
   for (let i = bombs.length - 1; i >= 0; i--) {
     const bomb = bombs[i];
+
     if (bomb.opacity <= 0) {
       bombs.splice(i, 1);
     } else bomb.update();
@@ -172,6 +172,7 @@ function animate() {
   for (let i = player.particles.length - 1; i >= 0; i--) {
     const particle = player.particles[i];
     particle.update();
+
     if (particle.opacity === 0) player.particles[i].splice(i, 1);
   }
 
@@ -198,9 +199,7 @@ function animate() {
       setTimeout(() => {
         invaderProjectiles.splice(index, 1);
       }, 0);
-    } else {
-      invaderProjectile.update();
-    }
+    } else invaderProjectile.update();
 
     if (
       rectangularCollision({
@@ -312,7 +311,7 @@ function animate() {
           projectile.position.y + projectile.radius >= invader.position.y
         ) {
           setTimeout(() => {
-            const invaderFound = grid.invader.find(
+            const invaderFound = grid.invaders.find(
               (invader2) => invader2 === invader
             );
             const projectileFound = projectiles.find(
@@ -343,8 +342,7 @@ function animate() {
                 grid.width =
                   lastInvader.position.x -
                   firstInvader.position.x +
-                  firstInvader.width;
-
+                  lastInvader.width;
                 grid.position.x = firstInvader.position.x;
               } else {
                 grids.splice(gridIndex, 1);
@@ -388,7 +386,7 @@ function animate() {
   }
 
   if (
-    keys.Space.pressed &&
+    keys.space.pressed &&
     player.powerUp === "Metralhadora" &&
     frames % 2 === 0 &&
     !game.over
@@ -430,9 +428,9 @@ document.querySelector("#restartButton").addEventListener("click", () => {
 });
 
 addEventListener("keydown", ({ key }) => {
-  if(game.over) return;
+  if (game.over) return;
 
-  switch(key) {
+  switch (key) {
     case "ArrowLeft":
       keys.ArrowLeft.pressed = true;
       break;
@@ -441,8 +439,8 @@ addEventListener("keydown", ({ key }) => {
       break;
     case " ":
       keys.space.pressed = true;
-      
-      if(player.powerUp === "Metralhadora") return;
+
+      if (player.powerUp === "Metralhadora") return;
 
       audio.shoot.play();
       projectiles.push(
@@ -454,15 +452,16 @@ addEventListener("keydown", ({ key }) => {
           velocity: {
             x: 0,
             y: -10
-          },
+          }
         })
       );
+
       break;
   }
 });
 
 addEventListener("keyup", ({ key }) => {
-  switch(key) {
+  switch (key) {
     case "ArrowLeft":
       keys.ArrowLeft.pressed = false;
       break;
@@ -471,6 +470,7 @@ addEventListener("keyup", ({ key }) => {
       break;
     case " ":
       keys.space.pressed = false;
+
       break;
   }
 });

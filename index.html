@@ -14,14 +14,14 @@
     <style>
       body,
       html {
+        height: 100%;
+        margin: 0;
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 0;
-        height: 100%;
-        font-family: "Press Start 2P", Arial, Helvetica, sans-serif;
-        font-size: 14px;
         background-color: black;
+        font-family: "Press Start 2P", sans-serif;
+        font-size: 14px;
       }
     </style>
   </head>
@@ -47,13 +47,13 @@
         id="startScreen"
         style="
           display: flex;
-          justify-content: center;
           align-items: center;
+          justify-content: center;
           position: absolute;
           top: 0;
-          left: 0;
           right: 0;
           bottom: 0;
+          left: 0;
           background: url('./img/startScreenBackground.png');
           background-size: contain;
           background-repeat: no-repeat;
@@ -67,6 +67,7 @@
             style="cursor: pointer; position: relative; display: inline-block"
           >
             <img src="./img/button.png" alt="Start Button" />
+
             <span
               style="
                 position: absolute;
@@ -79,21 +80,19 @@
               >Iniciar</span
             >
           </div>
-          <!-- Fim do id startButton -->
         </div>
       </div>
-      <!-- Fim do id startScreen -->
       <div
         id="restartScreen"
         style="
           display: none;
-          justify-content: center;
           align-items: center;
+          justify-content: center;
           position: absolute;
           top: 0;
-          left: 0;
           right: 0;
           bottom: 0;
+          left: 0;
           background: url('./img/startScreenBackground.png');
           background-size: contain;
           background-repeat: no-repeat;
@@ -119,35 +118,32 @@
               >Reiniciar</span
             >
           </div>
-          <!-- Fim do id restartButton -->
         </div>
       </div>
-      <!-- Fim do id restartScreen -->
+
+      <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"
+        integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+      ></script>
+
+      <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"
+        integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+      ></script>
+      <script src="./audio.js"></script>
+      <script src="./js/util.js"></script>
+      <script src="./js/classes/Player.js"></script>
+      <script src="./js/classes/Projectile.js"></script>
+      <script src="./js/classes/Particle.js"></script>
+      <script src="./js/classes/InvaderProjectile.js"></script>
+      <script src="./js/classes/Invader.js"></script>
+      <script src="./js/classes/Grid.js"></script>
+      <script src="./js/classes/Bomb.js"></script>
+      <script src="./index.js"></script>
     </div>
-    <!-- Fim do id parentDiv -->
-
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"
-      integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"
-      integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <script src="./audio.js"></script>
-    <script src="./js/util.js"></script>
-    <script src="./js/classes/Player.js"></script>
-    <script src="./js/classes/Projectile.js"></script>
-    <script src="./js/classes/Particle.js"></script>
-    <script src="./js/classes/InvaderProjectile.js"></script>
-    <script src="./js/classes/Invader.js"></script>
-    <script src="./js/classes/Grid.js"></script>
-    <script src="./js/classes/Bomb.js"></script>
-    <script src="./index.js"></script>
   </body>
 </html>
