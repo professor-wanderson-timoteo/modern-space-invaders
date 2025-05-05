@@ -366,7 +366,7 @@ function animate() {
     }
   })
 
-  if (keys.ArrowLeft.pressed && player.po-sition.x >= 0) {
+  if (keys.ArrowLeft.pressed && player.position.x >= 0) {
     player.velocity.x = -7;
     player.rotation = -0.15;
   } else if (
