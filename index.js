@@ -124,11 +124,9 @@ function animate() {
   for (let i = powerUps.length - 1; i >= 0; i--) {
     const powerUp = powerUps[i];
 
-    if (powerUp.position.x - powerUp.radius >= canvas.width) {
+    if (powerUp.position.x - powerUp.radius >= canvas.width) 
       powerUps.splice(i, 1);
-    } else {
-      powerUp.update();
-    }
+    else powerUp.update();
   }
 
   if (frames % 500 === 0) {
@@ -364,7 +362,7 @@ function animate() {
     ) {
       endGame();
     }
-  })
+  });
 
   if (keys.ArrowLeft.pressed && player.position.x >= 0) {
     player.velocity.x = -7;
@@ -388,7 +386,7 @@ function animate() {
     spawnBuffer -= 100;
   }
 
-  if (keys.space.pressed && player.powerUp === "Metrallhadora" && frames % 2 === 0 && !game.over) {
+  if (keys.space.pressed && player.powerUp === "Metralhadora" && frames % 2 === 0 && !game.over) {
     if (frames % 6 === 0) audio.shoot.play();
     projectiles.push(
       new Projectile({
@@ -440,7 +438,7 @@ addEventListener("keydown", ({ key }) => {
     case " ":
       keys.space.pressed = true;
 
-      if (player.powerUp === "Metrallhadora") return;
+      if (player.powerUp === "Metralhadora") return;
 
       audio.shoot.play();
       projectiles.push(
