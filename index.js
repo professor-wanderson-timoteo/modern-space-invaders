@@ -15,14 +15,14 @@ let powerUps = [];
 
 let keys = {
   ArrowLeft: {
-    pressed: false,
+    pressed: false
   },
   ArrowRight: {
-    pressed: false,
+    pressed: false
   },
   space: {
-    pressed: false,
-  },
+    pressed: false
+  }
 };
 
 let frames = 0;
@@ -30,7 +30,7 @@ let randomInterval = Math.floor(Math.random() * 500 + 500);
 
 let game = {
   over: false,
-  active: true,
+  active: true
 };
 
 let score = 0;
@@ -50,21 +50,21 @@ function init() {
 
   keys = {
     ArrowLeft: {
-      pressed: false,
+      pressed: false
     },
     ArrowRight: {
-      pressed: false,
+      pressed: false
     },
     space: {
-      pressed: false,
-    },
+      pressed: false
+    }
   };
 
   frames = 0;
   randomInterval = Math.floor(Math.random() * 500 + 500);
   game = {
     over: false,
-    active: true,
+    active: true
   };
 
   score = 0;
@@ -74,14 +74,14 @@ function init() {
       new Particle({
         position: {
           x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
+          y: Math.random() * canvas.height
         },
         velocity: {
           x: 0,
-          y: 0.3,
+          y: 0.3
         },
         radius: Math.random() * 2,
-        color: "white",
+        color: "white"
       })
     );
   }
@@ -103,7 +103,7 @@ function endGame() {
   createParticles({
     object: player,
     color: "white",
-    fades: true,
+    fades: true
   });
 }
 
@@ -124,7 +124,7 @@ function animate() {
   for (let i = powerUps.length - 1; i >= 0; i--) {
     const powerUp = powerUps[i];
 
-    if (powerUp.position.x - powerUp.radius >= canvas.width) 
+    if (powerUp.position.x - powerUp.radius >= canvas.width)
       powerUps.splice(i, 1);
     else powerUp.update();
   }
@@ -134,12 +134,12 @@ function animate() {
       new PowerUp({
         position: {
           x: 0,
-          y: Math.random() * 300 + 15,
+          y: Math.random() * 300 + 15
         },
         velocity: {
           x: 5,
-          y: 0,
-        },
+          y: 0
+        }
       })
     );
   }
@@ -149,12 +149,12 @@ function animate() {
       new Bomb({
         position: {
           x: randomBetween(Bomb.radius, canvas.width - Bomb.radius),
-          y: randomBetween(Bomb.radius, canvas.height - Bomb.radius),
+          y: randomBetween(Bomb.radius, canvas.height - Bomb.radius)
         },
         velocity: {
           x: (Math.random() - 0.5) * 6,
-          y: (Math.random() - 0.5) * 6,
-        },
+          y: (Math.random() - 0.5) * 6
+        }
       })
     );
   }
@@ -173,7 +173,7 @@ function animate() {
     const particle = player.particles[i];
     particle.update();
 
-    if (particle.opacity === 0) player.particles.splice(i, 1);
+    if (particle.opacity === 0) player.particles[i].splice(i, 1);
   }
 
   particles.forEach((particle, i) => {
@@ -193,7 +193,8 @@ function animate() {
 
   invaderProjectiles.forEach((invaderProjectile, index) => {
     if (
-      invaderProjectile.position.y + invaderProjectile.height >= canvas.height
+      invaderProjectile.position.y + invaderProjectile.height >=
+      canvas.height
     ) {
       setTimeout(() => {
         invaderProjectiles.splice(index, 1);
@@ -203,7 +204,7 @@ function animate() {
     if (
       rectangularCollision({
         rectangle1: invaderProjectile,
-        rectangle2: player,
+        rectangle2: player
       })
     ) {
       invaderProjectiles.splice(index, 1);
@@ -221,8 +222,8 @@ function animate() {
         Math.hypot(
           projectile.position.x - bomb.position.x,
           projectile.position.y - bomb.position.y
-        ) < 
-         projectile.radius + bomb.radius &&
+        ) <
+          projectile.radius + bomb.radius &&
         !bomb.active
       ) {
         projectiles.splice(i, 1);
@@ -237,7 +238,7 @@ function animate() {
         Math.hypot(
           projectile.position.x - powerUp.position.x,
           projectile.position.y - powerUp.position.y
-        ) < 
+        ) <
         projectile.radius + powerUp.radius
       ) {
         projectiles.splice(i, 1);
@@ -280,8 +281,8 @@ function animate() {
           Math.hypot(
             invader.position.x - bomb.position.x,
             invader.position.y - bomb.position.y
-          ) < 
-           invaderRadius + bomb.radius &&
+          ) <
+            invaderRadius + bomb.radius &&
           bomb.active
         ) {
           score += 50;
@@ -290,12 +291,12 @@ function animate() {
           grid.invaders.splice(i, 1);
           createScoreLabel({
             object: invader,
-            score: 50,
+            score: 50
           });
 
           createParticles({
             object: invader,
-            fades: true,
+            fades: true
           });
         }
       }
@@ -322,22 +323,22 @@ function animate() {
               scoreEl.innerHTML = score;
 
               createScoreLabel({
-                object: invader,
+                object: invader
               });
 
               createParticles({
                 object: invader,
-                fades: true,
+                fades: true
               });
 
               audio.explode.play();
               grid.invaders.splice(i, 1);
               projectiles.splice(j, 1);
 
-               if (grid.invaders.length > 0) {
+              if (grid.invaders.length > 0) {
                 const firstInvader = grid.invaders[0];
                 const lastInvader = grid.invaders[grid.invaders.length - 1];
-          
+
                 grid.width =
                   lastInvader.position.x -
                   firstInvader.position.x +
@@ -350,16 +351,15 @@ function animate() {
           }, 0);
         }
       });
-    }
 
-    if (
-      rectangularCollision({
-        rectangle1: invader,
-        rectangle2: player,
-      }) &&
-      !game.over
-    ) {
-      endGame();
+      if (
+        rectangularCollision({
+          rectangle1: invader,
+          rectangle2: player
+        }) &&
+        !game.over
+      )
+        endGame();
     }
   });
 
@@ -385,23 +385,24 @@ function animate() {
     spawnBuffer -= 100;
   }
 
-  if (keys.space.pressed &&
-     player.powerUp === "Metralhadora" && 
-     frames % 2 === 0 && 
-     !game.over
+  if (
+    keys.space.pressed &&
+    player.powerUp === "Metralhadora" &&
+    frames % 2 === 0 &&
+    !game.over
   ) {
     if (frames % 6 === 0) audio.shoot.play();
     projectiles.push(
       new Projectile({
         position: {
           x: player.position.x + player.width / 2,
-          y: player.position.y,
+          y: player.position.y
         },
         velocity: {
           x: 0,
-          y: -10,
+          y: -10
         },
-        color: "yellow",
+        color: "yellow"
       })
     );
   }
@@ -415,7 +416,6 @@ document.querySelector("#startButton").addEventListener("click", () => {
 
   document.querySelector("#startScreen").style.display = "none";
   document.querySelector("#scoreContainer").style.display = "block";
-
   init();
   animate();
 });
@@ -423,8 +423,8 @@ document.querySelector("#startButton").addEventListener("click", () => {
 document.querySelector("#restartButton").addEventListener("click", () => {
   audio.select.play();
   document.querySelector("#restartScreen").style.display = "none";
-init();
-animate();
+  init();
+  animate();
 });
 
 addEventListener("keydown", ({ key }) => {
@@ -447,14 +447,15 @@ addEventListener("keydown", ({ key }) => {
         new Projectile({
           position: {
             x: player.position.x + player.width / 2,
-            y: player.position.y,
+            y: player.position.y
           },
           velocity: {
             x: 0,
-            y: -10,
-          },
+            y: -10
+          }
         })
       );
+
       break;
   }
 });
@@ -469,6 +470,7 @@ addEventListener("keyup", ({ key }) => {
       break;
     case " ":
       keys.space.pressed = false;
+
       break;
   }
 });
