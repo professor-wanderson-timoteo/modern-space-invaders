@@ -164,9 +164,7 @@ function animate() {
 
     if (bomb.opacity <= 0) {
       bombs.splice(i, 1);
-    } else {
-      bomb.update();
-    }
+    } else bomb.update();
   }
 
   player.update();
@@ -200,9 +198,7 @@ function animate() {
       setTimeout(() => {
         invaderProjectiles.splice(index, 1);
       }, 0);
-    } else {
-      invaderProjectile.update();
-    }
+    } else invaderProjectile.update();
 
     if (
       rectangularCollision({
@@ -225,7 +221,8 @@ function animate() {
         Math.hypot(
           projectile.position.x - bomb.position.x,
           projectile.position.y - bomb.position.y
-        ) < projectile.radius + bomb.radius &&
+        ) < 
+         projectile.radius + bomb.radius &&
         !bomb.active
       ) {
         projectiles.splice(i, 1);
@@ -240,11 +237,12 @@ function animate() {
         Math.hypot(
           projectile.position.x - powerUp.position.x,
           projectile.position.y - powerUp.position.y
-        ) < projectile.radius + powerUp.radius
+        ) < 
+        projectile.radius + powerUp.radius
       ) {
         projectiles.splice(i, 1);
         powerUps.splice(j, 1);
-        player.powerUp = "Metrallhadora";
+        player.powerUp = "Metralhadora";
         audio.bonus.play();
 
         setTimeout(() => {
@@ -282,7 +280,8 @@ function animate() {
           Math.hypot(
             invader.position.x - bomb.position.x,
             invader.position.y - bomb.position.y
-          ) < invaderRadius + bomb.radius &&
+          ) < 
+           invaderRadius + bomb.radius &&
           bomb.active
         ) {
           score += 50;
@@ -331,26 +330,26 @@ function animate() {
                 fades: true,
               });
 
-              audio.explosion.play();
+              audio.explode.play();
               grid.invaders.splice(i, 1);
               projectiles.splice(j, 1);
+
+               if (grid.invaders.length > 0) {
+                const firstInvader = grid.invaders[0];
+                const lastInvader = grid.invaders[grid.invaders.length - 1];
+          
+                grid.width =
+                  lastInvader.position.x -
+                  firstInvader.position.x +
+                  lastInvader.width;
+                grid.position.x = firstInvader.position.x;
+              } else {
+                grids.splice(gridIndex, 1);
+              }
             }
           }, 0);
         }
       });
-    }
-
-    if (grid.invaders.length > 0) {
-      const firstInvader = grid.invaders[0];
-      const lastInvader = grid.invaders[grid.invaders.length - 1];
-
-      grid.width =
-        lastInvader.position.x -
-        firstInvader.position.x +
-        lastInvader.width;
-      grid.position.x = firstInvader.position.x;
-    } else {
-      grids.splice(gridIndex, 1);
     }
 
     if (
@@ -386,7 +385,11 @@ function animate() {
     spawnBuffer -= 100;
   }
 
-  if (keys.space.pressed && player.powerUp === "Metralhadora" && frames % 2 === 0 && !game.over) {
+  if (keys.space.pressed &&
+     player.powerUp === "Metralhadora" && 
+     frames % 2 === 0 && 
+     !game.over
+  ) {
     if (frames % 6 === 0) audio.shoot.play();
     projectiles.push(
       new Projectile({
@@ -420,9 +423,8 @@ document.querySelector("#startButton").addEventListener("click", () => {
 document.querySelector("#restartButton").addEventListener("click", () => {
   audio.select.play();
   document.querySelector("#restartScreen").style.display = "none";
-
-  init();
-  animate();
+init();
+animate();
 });
 
 addEventListener("keydown", ({ key }) => {
